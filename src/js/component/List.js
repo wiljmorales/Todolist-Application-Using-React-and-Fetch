@@ -16,9 +16,9 @@ export const List = () => {
 					body: JSON.stringify([]),
 				}
 			);
-			if (response.status === 200) {
-				getToDos();
-			}
+			// if (response.status === 200) {
+			// 	getToDos();
+			// }
 		} catch (error) {
 			alert("no se pudo crear usuario", error);
 		}
@@ -80,10 +80,13 @@ export const List = () => {
 		setImputValue(e.target.value);
 	};
 
-	const addNewTask = (e) => {
+	const addNewTask = async (e) => {
 		if (e.key === "Enter") {
 			const newTodosList = [...todoslist];
 			newTodosList.push({ label: inputValue, done: false });
+			if (todoslist.length === 0) {
+				await createUser();
+			}
 			console.log(newTodosList);
 			setTodoslist(newTodosList);
 			updateTodos(newTodosList);
